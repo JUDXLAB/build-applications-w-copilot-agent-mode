@@ -1,32 +1,32 @@
-# Getting started - app frontend and backend creation
+# 入门指南 - 应用前端和后端创建
 
-## Explain to GitHub Copilot the goals and steps
+## 向 GitHub Copilot 说明目标和步骤
 
 ```text
-I want to build an monafit Tracker app that will include the following:
+我想构建一个 monafit Tracker 应用，包含以下功能：
 
-* User authentication and profiles
-* Activity logging and tracking
-* Team creation and management
-* Competitive leader board
-* Personalized workout suggestions
+* 用户认证和个人资料
+* 活动记录与追踪
+* 团队创建与管理
+* 竞赛排行榜
+* 个性化锻炼建议
 
-It should be in one app
+这些功能应集成在一个应用中。
 
-generate instructions in this order
+请按以下顺序生成操作指令：
 
-1. Create the frontend and backend in the monafit-tracker directory structure of this repository in one command
-2. Setup backend python venv and create a monafit-tracker/backend/requirements.txt file
-3. The monafit-tracker/backend directory will store the django project and app with the name monafit-tracker
-4. The Django project monafit-tracker directory will have all the backend components for the app
-5. Create the django app directly in the directory monafit_tracker/backend
-6. Setup the monafit-tracker/frontend directory will store the react app with no subdirectories
-7. Install react framework
-8. Install bootstrap and import it
-9. Commands to install mongodb via 'apt-get' 
-10. Commands start mongodb with the 'sudo service mongodb start' and 'sudo service mongodb status'
+1. 在本仓库的 monafit-tracker 目录结构下，一条命令创建前端和后端
+2. 设置后端 python venv，并创建 monafit-tracker/backend/requirements.txt 文件
+3. monafit-tracker/backend 目录用于存放 django 项目和名为 monafit-tracker 的 app
+4. Django 项目 monafit-tracker 目录包含应用所有后端组件
+5. 直接在 monafit_tracker/backend 目录下创建 django app
+6. monafit-tracker/frontend 目录用于存放 react app，不要有子目录
+7. 安装 react 框架
+8. 安装 bootstrap 并导入
+9. 通过 'apt-get' 安装 mongodb 的命令
+10. 用 'sudo service mongodb start' 和 'sudo service mongodb status' 启动 mongodb 的命令
 
-The directory tree for the monafit Tracker App
+monafit Tracker App 的目录结构如下
 monafit-tracker/
 ├── backend/
 │   ├── venv/
@@ -46,7 +46,7 @@ monafit-tracker/
     ├── package.json
     └── README.md
 
-Create a requirements.txt with the following Python required packages
+创建 requirements.txt，包含以下 Python 依赖包
 
 Django==4.1
 djangorestframework==3.14.0
@@ -74,20 +74,20 @@ webcolors==24.8.0
 webencodings==0.5.1
 websocket-client==1.8.0
 
-All of the backend django app will be in monafit_tracker and do NOT create another app of any kind
+所有后端 django app 都在 monafit_tracker 目录下，不要再创建其他 app
 
-Use a Python virtual environment and install all python dependencies from file monafit-tracker/backend/requirements.txt in this workspace
+使用 Python 虚拟环境，并在本工作区通过 monafit-tracker/backend/requirements.txt 安装所有依赖
 
-The monafit-tracker/backend/requirements.txt already contains all Django requirements. Django, djongo, sqlparse
+monafit-tracker/backend/requirements.txt 已包含所有 Django 依赖。Django、djongo、sqlparse
 
-Layout the directory structure with no redundant backend and frontend subdirectories
+目录结构不要有冗余的 backend 和 frontend 子目录
 
-Use bootstrap for the frontend
+前端使用 bootstrap
 
-Let's think about this step by step
+让我们一步一步思考
 ```
 
-### Commands to use to create the monafit Tracker structure
+### 创建 monafit Tracker 结构的命令
 
 ```bash
 mkdir -p monafit-tracker/{backend,frontend}
@@ -108,76 +108,76 @@ sudo apt-get update && sudo apt-get install -y mongodb
 sudo service mongodb start && sudo service mongodb status
 ```
 
-## Initialize the database, setup database and install apps in settings.py, models, serializers, urls, and views
+## 初始化数据库，设置数据库并在 settings.py、models、serializers、urls 和 views 中安装 app
 
-Type the following prompt in GitHub Copilot Chat:
+在 GitHub Copilot Chat 输入以下提示：
 
 ```text
-In our next steps lets think step by step and setup the following in this order
+接下来我们一步一步设置如下内容：
 
-1. Initialize the mongo monafit_db database and create a correct table structure for users, teams, activities, leaderboard, and workouts collections
-2. Make sure there is a unique id for primary key for the user collection 
-   ex. db.users.createIndex({ "email": 1 }, { unique: true })
-3. settings.py in our django project for mongodb monafit_db database including localhost and the port
-4. settings.py in our django project setup for all installed apps. ex djongo, monafit_tracker, rest_framework
-5. In monafit_tracker project setup and use command touch models.py, serializers.py, urls.py, and views.py for users, teams, activity, leaderboard, and workouts
-6. Generate code for models.py, serializers.py, and views.py and
-7. make sure urls.py has a root, admin, and api endpoints
+1. 初始化 mongo monafit_db 数据库，并为 users、teams、activities、leaderboard 和 workouts 集合创建正确的表结构
+2. 确保 user 集合有唯一 id 作为主键
+   例如：db.users.createIndex({ "email": 1 }, { unique: true })
+3. django 项目的 settings.py 配置 mongodb monafit_db 数据库，包括 localhost 和端口
+4. django 项目的 settings.py 配置所有已安装 app，如 djongo、monafit_tracker、rest_framework
+5. 在 monafit_tracker 项目下，使用 touch 命令创建 models.py、serializers.py、urls.py 和 views.py，分别用于 users、teams、activity、leaderboard 和 workouts
+6. 生成 models.py、serializers.py 和 views.py 的代码
+7. 确保 urls.py 有根路由、admin 和 api 端点
     urlpatterns = [
-        path('', api_root, name='api-root'),  # Root endpoint
-        path('admin/', admin.site.urls),  # Admin endpoint
-        path('api/', include(router.urls)),  # API endpoint
+        path('', api_root, name='api-root'),  # 根端点
+        path('admin/', admin.site.urls),  # 管理端点
+        path('api/', include(router.urls)),  # API 端点
     ]
 ```
 
-### MongoDB commands to initialize and setup `monafit_db`
+### 初始化和设置 `monafit_db` 的 MongoDB 命令
 
 ```bash
 mongo --eval "db = db.getSiblingDB('monafit_db'); db.createCollection('users'); db.createCollection('teams'); db.createCollection('activity'); db.createCollection('leaderboard'); db.createCollection('workouts'); db.users.createIndex({ email: 1 }, { unique: true }); db.teams.createIndex({ name: 1 }, { unique: true }); db.activity.createIndex({ activity_id: 1 }, { unique: true }); db.leaderboard.createIndex({ leaderboard_id: 1 }, { unique: true }); db.workouts.createIndex({ workout_id: 1 }, { unique: true });"
 ```
 
-### Check the database collections
+### 检查数据库集合
 
 ```bash
 mongo --eval "db = db.getSiblingDB('monafit_db'); printjson(db.getCollectionNames());"
 ```
 
-### Sample settings.py
+### settings.py 示例
 
 ```json
-# FILE: monafit_tracker/settings.py
+# 文件: monafit_tracker/settings.py
 
 """
-Django settings for monafit_tracker project.
+monafit_tracker 项目的 Django 配置。
 
-Generated by 'django-admin startproject' using Django 4.1.
+由 'django-admin startproject' 使用 Django 4.1 生成。
 
-For more information on this file, see
+关于本文件的更多信息，请参见
 https://docs.djangoproject.com/en/4.1/topics/settings/
 
-For the full list of settings and their values, see
+完整配置项及其值请参见
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# 构建项目路径
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+# 快速启动开发设置 - 不适合生产环境
+# https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# 生产环境请务必保密密钥！
 SECRET_KEY = "django-insecure-25rsll_s*6ml5lv4l$51z6x!y5u_k!11f!hf^1&%q!$syk=ja3"
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# 生产环境请关闭 debug！
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'congenial-robot-pwrx4jxpp9c6vjv-8000.app.github.dev']
 
 
-# Application definition
+# 应用定义
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -224,7 +224,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "monafit_tracker.wsgi.application"
 
 
-# Database
+# 数据库
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
@@ -237,7 +237,7 @@ DATABASES = {
 }
 
 
-# Password validation
+# 密码验证
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -256,7 +256,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# 国际化
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
@@ -268,12 +268,13 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# 静态文件（CSS、JavaScript、图片）
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
 
-# Default primary key field type
+
+# 默认主键字段类型
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -281,12 +282,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = True
 ```
 
-### Sample code for models.py, serializers.py, views.py, and urls.py
+### models.py、serializers.py、views.py 和 urls.py 示例代码
 
 #### models.py
 
 ```python
-# FILE: monafit-tracker/backend/monafit_tracker/models.py
+# 文件: monafit-tracker/backend/monafit_tracker/models.py
 
 from djongo import models
 
@@ -357,7 +358,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 class LeaderboardSerializer(serializers.ModelSerializer):
     _id = ObjectIdField()
-    user = UserSerializer()  # Expand the user object
+    user = UserSerializer()  # 展开 user 对象
 
     class Meta:
         model = Leaderboard
@@ -374,7 +375,7 @@ class WorkoutSerializer(serializers.ModelSerializer):
 #### views.py
 
 ```python
-# FILE: monafit-tracker/backend/monafit_tracker/views.py
+# 文件: monafit-tracker/backend/monafit_tracker/views.py
 
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
@@ -386,9 +387,9 @@ from .models import User, Team, Activity, Leaderboard, Workout
 @api_view(['GET', 'POST'])
 def api_root(request, format=None):
     if request.method == 'POST':
-        return Response({"message": "POST request received"}, status=status.HTTP_201_CREATED)
+        return Response({"message": "收到 POST 请求"}, status=status.HTTP_201_CREATED)
 
-    base_url = '[USE CODESPACE URL]'
+    base_url = '[使用 CODESPACE URL]'
     return Response({
         'users': base_url + 'api/users/?format=api',
         'teams': base_url + 'api/teams/?format=api',
@@ -421,7 +422,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
 #### urls.py
 
 ```python
-# FILE: monafit-tracker/backend/monafit_tracker/urls.py
+# 文件: monafit-tracker/backend/monafit_tracker/urls.py
 
 from django.contrib import admin
 from django.urls import path, include
@@ -436,24 +437,24 @@ router.register(r'leaderboard', LeaderboardViewSet)
 router.register(r'workouts', WorkoutViewSet)
 
 urlpatterns = [
-    path('', api_root, name='api-root'),  # Root endpoint
-    path('admin/', admin.site.urls),  # Admin endpoint
-    path('api/', include(router.urls)),  # API endpoint
+    path('', api_root, name='api-root'),  # 根端点
+    path('admin/', admin.site.urls),  # 管理端点
+    path('api/', include(router.urls)),  # API 端点
 ]
 ```
 
-## Populate the databse with sample data
+## 用示例数据填充数据库
 
 ```text
-Let's use manage.py to get the database setup and populated based on fields in models.py
+我们用 manage.py 设置数据库并根据 models.py 字段填充数据
 
-- Create populate_db.py as a manage.py command so it initializes and deletes previous data and recreates it
-- populate_db.py creates users, teams, activity, leaderboard, and workouts
-- users will be super hero users
-- Include steps to migrate in the monafit_tracker project
+- 创建 populate_db.py 作为 manage.py 命令，初始化并删除旧数据后重建
+- populate_db.py 创建 users、teams、activity、leaderboard 和 workouts
+- users 用超级英雄用户
+- 包含 monafit_tracker 项目的迁移步骤
 ```
 
-### Commands to create the directory structure for populate_db.py
+### 创建 populate_db.py 目录结构的命令
 
 ```bash
 mkdir -p monafit-tracker/backend/monafit_tracker/management/commands
@@ -462,13 +463,12 @@ touch monafit-tracker/backend/monafit_tracker/management/commands/__init__.py
 touch monafit-tracker/backend/monafit_tracker/management/commands/populate_db.py
 ```
 
-### Sample code for populate_db.py to populate the database
+### populate_db.py 示例代码，用于填充数据库
 
-Mergington Physical Education sample data use for populate_db.py
-Should reside under monafit-tracker/backend/monafit_tracker/management/commands/populate_db.py
+Mergington 体育样例数据，放在 monafit-tracker/backend/monafit_tracker/management/commands/populate_db.py
 
 ```python
-# FILE: monafit-tracker/backend/monafit_tracker/management/commands/populate_db.py
+# 文件: monafit-tracker/backend/monafit_tracker/management/commands/populate_db.py
 
 from django.core.management.base import BaseCommand
 from monafit_tracker.models import User, Team, Activity, Leaderboard, Workout
@@ -478,21 +478,21 @@ from datetime import timedelta
 from bson import ObjectId
 
 class Command(BaseCommand):
-    help = 'Populate the database with test data for users, teams, activity, leaderboard, and workouts'
+    help = '用测试数据填充 users、teams、activity、leaderboard 和 workouts'
 
     def handle(self, *args, **kwargs):
-        # Connect to MongoDB
+        # 连接 MongoDB
         client = MongoClient(settings.DATABASES['default']['HOST'], settings.DATABASES['default']['PORT'])
         db = client[settings.DATABASES['default']['NAME']]
 
-        # Drop existing collections
+        # 删除已有集合
         db.users.drop()
         db.teams.drop()
         db.activity.drop()
         db.leaderboard.drop()
         db.workouts.drop()
 
-        # Create users
+        # 创建用户
         users = [
             User(_id=ObjectId(), username='thundergod', email='thundergod@mhigh.edu', password='thundergodpassword'),
             User(_id=ObjectId(), username='metalgeek', email='metalgeek@mhigh.edu', password='metalgeekpassword'),
@@ -502,14 +502,14 @@ class Command(BaseCommand):
         ]
         User.objects.bulk_create(users)
 
-        # Create teams
+        # 创建团队
         team = Team(_id=ObjectId(), name='Blue Team')
         team = Team(_id=ObjectId(), name='Gold Team')
         team.save()
         for user in users:
             team.members.add(user)
 
-        # Create activities
+        # 创建活动
         activities = [
             Activity(_id=ObjectId(), user=users[0], activity_type='Cycling', duration=timedelta(hours=1)),
             Activity(_id=ObjectId(), user=users[1], activity_type='Crossfit', duration=timedelta(hours=2)),
@@ -519,7 +519,7 @@ class Command(BaseCommand):
         ]
         Activity.objects.bulk_create(activities)
 
-        # Create leaderboard entries
+        # 创建排行榜条目
         leaderboard_entries = [
             Leaderboard(_id=ObjectId(), user=users[0], score=100),
             Leaderboard(_id=ObjectId(), user=users[1], score=90),
@@ -529,7 +529,7 @@ class Command(BaseCommand):
         ]
         Leaderboard.objects.bulk_create(leaderboard_entries)
 
-        # Create workouts
+        # 创建锻炼
         workouts = [
             Workout(_id=ObjectId(), name='Cycling Training', description='Training for a road cycling event')
             Workout(_id=ObjectId(), name='Crossfit', description='Training for a crossfit competition'),
@@ -539,10 +539,10 @@ class Command(BaseCommand):
         ]
         Workout.objects.bulk_create(workouts)
 
-        self.stdout.write(self.style.SUCCESS('Successfully populated the database with test data.'))
+        self.stdout.write(self.style.SUCCESS('成功填充测试数据到数据库。'))
 ```
 
-### Run the following commands to migrate the database and populate it with data
+### 运行以下命令迁移数据库并填充数据
 
 ```bash
 python monafit-tracker/backend/manage.py monafit-tracker/backend/makemigrations
@@ -550,14 +550,14 @@ python monafit-tracker/backend/manage.py monafit-tracker/backend/migrate
 python monafit-tracker/backendmanage.py monafit-tracker/backend/populate_db
 ```
 
-## Using the Codespace endpoint to access the Django REST API endpoints
+## 使用 Codespace 端点访问 Django REST API
 
 ```text
-Let's do the following step by step
+让我们一步一步操作
 
-- Update #file:monafit-tracker/backend/monafit_tracker/views.py to replace the return for the rest api url endpiints with the codespace url http://[REPLACE-THIS-WITH-YOUR-CODESPACE-NAME]-8000.app.github.dev for django
-- Replace <codespace-name> with [REPLACE-THIS-WITH-YOUR-CODESPACE-NAME]
-- Run the Django server
+- 更新 #file:monafit-tracker/backend/monafit_tracker/views.py，将 rest api url 返回值替换为 codespace url http://[REPLACE-THIS-WITH-YOUR-CODESPACE-NAME]-8000.app.github.dev
+- 用 [REPLACE-THIS-WITH-YOUR-CODESPACE-NAME] 替换 <codespace-name>
+- 启动 Django 服务器
 
 HTTP 200 OK
 Allow: GET, HEAD, OPTIONS
@@ -572,7 +572,7 @@ Vary: Accept
     "workouts": "http://localhost:8000/api/workouts/?format=api"
 }
 
-becomes
+变为
 
 HTTP 200 OK Allow: GET, HEAD, OPTIONS Content-Type: application/json Vary: Accept
 
@@ -585,10 +585,10 @@ HTTP 200 OK Allow: GET, HEAD, OPTIONS Content-Type: application/json Vary: Accep
 }
 ```
 
-## Update to views.py
+## views.py 更新
 
 ```python
-# FILE: monafit-tracker/backend/monafit_tracker/views.py
+# 文件: monafit-tracker/backend/monafit_tracker/views.py
 
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
@@ -629,13 +629,13 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     serializer_class = WorkoutSerializer
 ```
 
-## Run the server via manage.py
+## 通过 manage.py 启动服务器
 
 ```bash
 python manage.py runserver
 ```
 
-## Setup the frontend React app use the below package.json
+## 设置前端 React 应用，使用如下 package.json
 
 ```bash
 mkdir -p monafit-tracker/frontend
@@ -695,12 +695,12 @@ npm install react-router-dom --prefix monafit-tracker/frontend
 }
 ```
 
-## monafit App components
+## monafit App 组件
 
-Create the following components
+创建以下组件
 
 - Users
-- Ativities
+- Activities
 - Teams
 - Leaderboard
 - Workouts
@@ -711,7 +711,7 @@ Create the following components
 - Settings
 - Home
 
-Basic username password authentication is fine
+基础用户名密码认证即可
 
 ### App.js
 
@@ -763,7 +763,7 @@ function App() {
             <Route path="/teams" element={<Teams />} />
             <Route path="/users" element={<Users />} />
             <Route path="/workouts" element={<Workouts />} />
-            <Route path="/" element={<h1>Welcome to OctoFit Tracker</h1>} />
+            <Route path="/" element={<h1>欢迎使用 OctoFit Tracker</h1>} />
           </Routes>
         </div>
       </div>
@@ -774,20 +774,20 @@ function App() {
 export default App;
 ```
 
-### index.js potential React version issues
+### index.js 可能的 React 版本问题
 
-The error indicates that the ReactDOM.render function is not available in the version of React you are using. This is because React 18 introduced a new root API for rendering.
+报错提示 ReactDOM.render 不可用，因为 React 18 引入了新的 root API。
 
-To fix this issue, update your src/index.js file to use the new createRoot API provided by React 18. Here's the updated code:
+修复方法：将 src/index.js 更新为 React 18 的 createRoot API。如下：
 
 ```javascript
 import React from 'react';
-import ReactDOM from 'react-dom/client'; // Use the new root API
+import ReactDOM from 'react-dom/client'; // 使用新 root API
 import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root')); // Create a root
+const root = ReactDOM.createRoot(document.getElementById('root')); // 创建 root
 root.render(
   <React.StrictMode>
     <App />
@@ -795,9 +795,9 @@ root.render(
 );
 ```
 
-### Example leaderboard component
+### 示例排行榜组件
 
-Always use the Codespace URL for the API endpoint
+API 端点始终使用 Codespace URL
 
 ```javascript
 import React, { useEffect, useState } from 'react';
@@ -809,17 +809,17 @@ function Leaderboard() {
     fetch('https://congenial-robot-pwrx4jxpp9c6vjv-8000.app.github.dev/api/leaderboard/')
       .then(response => response.json())
       .then(data => setLeaderboard(data))
-      .catch(error => console.error('Error fetching leaderboard:', error));
+      .catch(error => console.error('获取排行榜出错:', error));
   }, []);
 
   return (
     <div>
-      <h1>Leaderboard</h1>
+      <h1>排行榜</h1>
       <table>
         <thead>
           <tr>
-            <th>Username</th>
-            <th>Score</th>
+            <th>用户名</th>
+            <th>分数</th>
           </tr>
         </thead>
         <tbody>
@@ -838,13 +838,13 @@ function Leaderboard() {
 export default Leaderboard;
 ```
 
-## App.css example
+## App.css 示例
 
 ```css
-/* General styles */
+/* 通用样式 */
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f0f8ff; /* Light blue background */
+  background-color: #f0f8ff; /* 浅蓝色背景 */
   margin: 0;
   padding: 0;
 }
@@ -853,9 +853,9 @@ body {
   text-align: center;
 }
 
-/* Navigation styles */
+/* 导航样式 */
 nav {
-  background-color: #4682b4; /* Steel blue */
+  background-color: #4682b4; /* 钢蓝色 */
   padding: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -873,7 +873,7 @@ nav ul li {
 }
 
 nav ul li a {
-  color: #0f0be4; /* White text for visibility */
+  color: #0f0be4; /* 白色文本 */
   text-decoration: none;
   font-weight: bold;
   font-size: 1.2rem;
@@ -881,23 +881,23 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #f0f8ff; /* Light blue */
+  color: #f0f8ff; /* 浅蓝色 */
   text-decoration: underline;
 }
 
-/* Component styles */
+/* 组件样式 */
 h1 {
-  color: #00008b; /* Dark blue header name */
+  color: #00008b; /* 深蓝色标题 */
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
-/* Table styles */
+/* 表格样式 */
 table {
   width: 90%;
   margin: 1rem auto;
   border-collapse: collapse;
-  background-color: #ffffff; /* White background */
+  background-color: #ffffff; /* 白色背景 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
@@ -911,17 +911,17 @@ table th, table td {
 }
 
 table th {
-  background-color: #4682b4; /* Steel blue */
+  background-color: #4682b4; /* 钢蓝色 */
   color: white;
   font-size: 1.2rem;
 }
 
 table tr:nth-child(even) {
-  background-color: #f0f8ff; /* Light blue */
+  background-color: #f0f8ff; /* 浅蓝色 */
 }
 
 table tr:hover {
-  background-color: #e0ffff; /* Light cyan */
+  background-color: #e0ffff; /* 浅青色 */
 }
 
 ul {
@@ -930,7 +930,7 @@ ul {
 }
 
 ul li {
-  color: #4682b4; /* Steel blue text */
+  color: #4682b4; /* 钢蓝色文本 */
   background-color: #fff;
   margin: 0.5rem 0;
   padding: 1rem;
@@ -939,16 +939,16 @@ ul li {
   font-size: 1.1rem;
 }
 
-/* Text styles */
+/* 文本样式 */
 .component-text {
-  color: #00008b; /* Dark blue center title */
+  color: #00008b; /* 深蓝色居中标题 */
   font-size: 1.8rem;
   margin-bottom: 1rem;
 }
 
-/* Button styles */
+/* 按钮样式 */
 button {
-  background-color: #4682b4; /* Steel blue */
+  background-color: #4682b4; /* 钢蓝色 */
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -959,7 +959,7 @@ button {
 }
 
 button:hover {
-  background-color: #5a9bd4; /* Lighter steel blue */
+  background-color: #5a9bd4; /* 更浅的钢蓝色 */
 }
 
 .App-logo {

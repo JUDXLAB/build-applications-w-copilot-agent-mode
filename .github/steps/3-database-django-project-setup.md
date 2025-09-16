@@ -1,63 +1,63 @@
-## Step 3: Initialize and create the octofit_db MongoDB database, Django project/app, update Django project/app files, and populate the MongoDB database
+## 步骤 3：初始化并创建 octofit_db MongoDB 数据库、Django 项目/应用，更新 Django 项目/应用文件，并填充 MongoDB 数据库
 
-In this step, we will accomplish the following:
+在本步骤中，我们将完成以下内容：
 
-- Set up the octofit_db MongoDB database structure.
-- Update the octofit-tracker/backend/octofit_tracker app files:
-  - settings, models, serializers, urls, views, tests, and admin files.
-- Populate the octofit_db database with test data.
-- Verify the test data is populated in the octofit_db database.
+- 设置 octofit_db MongoDB 数据库结构。
+- 更新 octofit-tracker/backend/octofit_tracker 应用的相关文件：
+  - settings、models、serializers、urls、views、tests 和 admin 文件。
+- 用测试数据填充 octofit_db 数据库。
+- 验证 octofit_db 数据库中已填充测试数据。
 
-1. Open all files in the `docs` folder and keep this file open in the editor throughout this exercise.
-    1.  agent mode uses `mona-high-school-fitness-tracker.md` and `octofit_story.md` as a reference to create the application
-2. Copy and paste the following prompt(s) in the GitHub Copilot Chat and select the "Agent" instead of "Ask" or "Edit" from the drop down where you are inserting the prompt.
+1. 打开 `docs` 文件夹下的所有文件，并在整个练习过程中保持本文件在编辑器中打开。
+    1. agent mode 会使用 `mona-high-school-fitness-tracker.md` 和 `octofit_story.md` 作为参考来创建应用程序。
+2. 将以下提示复制粘贴到 GitHub Copilot Chat，并在下拉菜单中选择 “Agent”，而不是 “Ask” 或 “Edit”。
 
-> 🪧 **Note:** 
-- Do not change the model from GPT-4o this will be an optional activity at the end of the course.
-- Keep in mind that the Copilot agent mode is conversational so it may ask you questions and you can ask it questions too.
-- Wait a moment for the Copilot to respond and press the continue button to execute commands presented by Copilot agent mode.
-- Keep files created and updated by Copilot agent mode until it is finished.
-- Agent mode has the ability to evaluate your code base and execute commands and add/refactor/delete parts of your code base and automatically self heal if it or you makes a mistake in the process.
+> 🪧 **注意：**
+- 不要将模型从 GPT-4o 切换为其他模型，这将在课程最后作为可选活动。
+- 请记住，Copilot agent mode 是对话式的，它可能会向你提问，你也可以向它提问。
+- 等待 Copilot 响应，并点击继续按钮以执行 Copilot agent mode 提供的命令。
+- 在 Copilot agent mode 完成前，请保留其创建和更新的文件。
+- agent mode 能够评估你的代码库、执行命令，并自动添加/重构/删除代码库中的部分内容，如有错误还能自动修复。
 
-### :keyboard: Activity: Setup the Python Django project/app
+### :keyboard: 活动：设置 Python Django 项目/应用
 
 > ![Static Badge](https://img.shields.io/badge/-Prompt-text?style=flat-square&logo=github%20copilot&labelColor=512a97&color=ecd8ff)
 >
 > ```prompt
-> Based on the example monafit tracker app in the docs/mona-high-school-fitness-tracker.md file and use octofit as the name for mergington's high schools app,  > let's setup the Python Django project/app and run the server.
+> 参考 docs/mona-high-school-fitness-tracker.md 文件中的 monafit tracker 应用示例，并将 octofit 作为 mergington 高中应用的名称。让我们设置 Python Django 项目/应用并运行服务器。
 >
-> 1. The octofit-tracker/backend directory will store the django project and app with the name octofit-tracker.
-> 2. Setup the additional configuration for the django project/app with the name octofit-tracker.
+> 1. octofit-tracker/backend 目录将存放名为 octofit-tracker 的 django 项目和应用。
+> 2. 为名为 octofit-tracker 的 django 项目/应用设置额外配置。
 >
-> Don't proceed with the next activity until all of these steps are completed.
+> 在所有这些步骤完成前不要进行下一个活动。
 >```
 
-> 🪧 **Note:** 
-- Wait a moment for the Copilot to respond and press the continue button to execute each command presented by Copilot agent mode.
-- Keep files created and updated until the Copilot agent mode has finished.
+> 🪧 **注意：**
+- 等待 Copilot 响应，并点击继续按钮以执行 Copilot agent mode 提供的每个命令。
+- 在 Copilot agent mode 完成前，请保留其创建和更新的文件。
 
-> ❕ **Important:** Don't start the Python Django app in the way that GitHub Copilot agent mode suggests hit **cancel**.
+> ❕ **重要提示：** 不要按照 Copilot agent mode 建议的方式启动 Python Django 应用，点击 **cancel**。
 
-### :keyboard: Activity: Initialize and create the octofit_db MongoDB database
+### :keyboard: 活动：初始化并创建 octofit_db MongoDB 数据库
 
 > ![Static Badge](https://img.shields.io/badge/-Prompt-text?style=flat-square&logo=github%20copilot&labelColor=512a97&color=ecd8ff)
 >
 > ```prompt
-> Based on the example monafit tracker app in the docs/mona-high-school-fitness-tracker.md file and use octofit as the name for Merington's high school's app. Let's initialize the octofit_db database.
+> 参考 docs/mona-high-school-fitness-tracker.md 文件中的 monafit tracker 应用示例，并将 octofit 作为 Merington 高中应用的名称。让我们初始化 octofit_db 数据库。
 >
-> 1. Initialize the mongo octofit_db database.
-> 2. Create a correct table structure for users, teams, activity, leaderboard, and workouts collections.
-> 3. Make sure there is a unique ID for the primary key for the user collection.
->   ex. db.users.createIndex({ "email": 1 }, { unique: true })
-> 4. Execute the command for me to create the database.
-> 5. List the collections in the octofit_db database.
+> 1. 初始化 mongo octofit_db 数据库。
+> 2. 为 users、teams、activity、leaderboard 和 workouts 集合创建正确的数据表结构。
+> 3. 确保 user 集合的主键有唯一 ID。
+>   例如：db.users.createIndex({ "email": 1 }, { unique: true })
+> 4. 为我执行创建数据库的命令。
+> 5. 列出 octofit_db 数据库中的所有集合。
 > 
-> Don't proceed with the next activity until all of these steps are completed.
+> 在所有这些步骤完成前不要进行下一个活动。
 > ```
 
-> ❕ **Important:**
-- If there is no "Continue" button, just pull the left side of the GitHub Copilot Chat panel over to the left, and it should appear.
-- If this doesn't work, you may need to copy and paste the response in the terminal if there is no "Continue" button.
+> ❕ **重要提示：**
+- 如果没有“Continue”按钮，只需将 GitHub Copilot Chat 面板左侧拉宽即可出现。
+- 如果还是不行，终端没有“Continue”按钮时，你可能需要将响应内容复制粘贴到终端执行。
 
 ### :keyboard: Activity: Update the Python Django project/app files
 
