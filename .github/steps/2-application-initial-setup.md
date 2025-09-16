@@ -86,3 +86,21 @@
 - 如果 Mona 发现错误，只需修正并再次推送更改。Mona 会多次检查你的工作直到正确为止。
 
 </details>
+
+### 💡 附加说明：在本地安装 MongoDB 的脚本
+
+已在仓库添加 `scripts/setup-mongodb.ps1` 脚本，支持自动：
+
+- 检测是否已安装 MongoDB Server 与 mongosh
+- 使用 winget 安装（如果尚未安装）
+- 启动服务并创建 `octofit_db` 及所需集合（users, teams, activities, leaderboard, workouts）
+
+使用方式（Windows PowerShell，建议以管理员运行一次安装阶段）：
+
+```powershell
+# 在仓库根目录执行
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+./scripts/setup-mongodb.ps1
+```
+
+若已安装，只会执行服务启动与集合验证。没有 winget 时，请手动安装后再运行脚本。
